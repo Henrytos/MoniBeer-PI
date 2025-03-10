@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira - Cervejaria</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            margin: auto;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .hidden { display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Calculadora Financeira - Cervejaria</h2>
+        <div id="step1">
+            <h3>📊 Visão do Mercado</h3>
+            <p>O Brasil é o terceiro maior produtor de cerveja do mundo.</p>
+            <p>O setor de cerveja artesanal cresceu 35% nos últimos 5 anos.</p>
+            <p>O consumo médio per capita no Brasil é de 62 litros por ano.</p>
+            <button onclick="nextStep(1)">Próximo</button>
+        </div>
+        
+        <div id="step2" class="hidden">
+            <h3>❌ Média de Perdas no Setor</h3>
+            <p>Falhas no controle de temperatura causam 5% a 10% de perdas.</p>
+            <p>Uma cervejaria que produz 10.000 litros/mês pode perder até 1.000 litros.</p>
+            <p>Prejuízo estimado: R$ 5.000 a R$ 10.000/mês.</p>
+            <button onclick="nextStep(2)">Próximo</button>
+        </div>
+        
+        <div id="step3" class="hidden">
+            <h3>📈 Simulação Personalizada</h3>
+            <label>Produção mensal (litros): <input type="number" id="producao"></label><br>
+            <label>Percentual médio de perdas (%): <input type="number" id="perda"></label><br>
+            <label>Custo médio por litro (R$): <input type="number" id="custo"></label><br>
+            <button onclick="calcular()">Calcular</button>
+            <h3 id="resultado"></h3>
+        </div>
+    </div>
+
+    <script>
+        function nextStep(step) {
+            document.getElementById(`step${step}`).classList.add('hidden');
+            document.getElementById(`step${step + 1}`).classList.remove('hidden');
+        }
+
+        function calcular() {
+            let producao = parseFloat(document.getElementById('producao').value);
+            let perda = parseFloat(document.getElementById('perda').value) / 100;
+            let custo = parseFloat(document.getElementById('custo').value);
+
+            let perdaFinanceira = (producao * perda) * custo;
+            let economia = perdaFinanceira * 0.3;
+
+            document.getElementById('resultado').innerHTML = `
+                Perda financeira atual: R$ ${perdaFinanceira.toFixed(2)}<br>
+                Economia estimada com monitoramento: R$ ${economia.toFixed(2)}
+            `;
+        }
+    </script>
+</body>
+</html>
