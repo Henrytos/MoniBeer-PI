@@ -1,5 +1,5 @@
-CREATE DATABASE DUFF;
-USE DUFF;
+CREATE DATABASE MoniBeer;
+USE MoniBeer;
 
 CREATE TABLE Usuario(
 idUsuario INT PRIMARY KEY auto_increment,
@@ -59,3 +59,23 @@ INSERT INTO Tanque VALUES
 (default, 'maquina5', '05', '02','Pilsen', '10.0', '12.0', 'A');
 
 SELECT * FROM TANQUE;
+
+SELECT * from usuario where emailcliente like '%@c%';
+
+update sensor set statusSensor = 'inativo' where idsensor = 5;
+
+select * from sensor;
+
+select Nome , case 
+when EstagioFermentacao = 'A' 
+then 'Primária' 
+when EstagioFermentacao = 'B'
+then 'Secundária'
+else 'Terciaria' 
+end as 'Estágio Fermentação' from Tanque;
+
+select case
+when tipocerveja = 'ipa'
+then 'Cerveja IPA'
+else 'Cerveja Pilsen'
+end as 'TIPO CERVEJA' FROM tanque;
