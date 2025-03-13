@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Financeira</title>
+</head>
+
+<body>
+    <div>
+        <img src="./img/monibeer-logo.png" alt="monibeer logo">
+        <h1>Calculadora: Sensor LM35</h1>
+
+        <p>É extremamente importante o lucro na produção de cervejas artesanais, visto que se tem gastos na produção,
+            água, luz, seguros etc.</p>
+        <p>O lucro de uma cerveja artesanal individual fica em média de 20%</p>
+
+        Quantos fermentadores você possui? <br>
+        <input type="number" id="fermentador_qtd"> <br>
+
+        Quantos litros possui o seu fermentador? <br>
+        <input type="number" id="fermentador_litro"> <br>
+
+        Qual o número de fermentadoras que você perde por problemas de temperatura? <br>
+        <input type="number" id="fermentador_temperatura"> <br>
+
+        Qual o custo por cada litro de cerveja? <br>
+        <input type="number" id="custo_litro_cerveja"> <br>
+
+        Considere uma lata de 250ml: <br>
+        Por quanto você vende a cerveja? <br>
+        <input type="number" id="custo_cerveja"> <br>
+        Quantas cervejas (lata 250ml) você produz por mês? <br>
+        <input type="number" id="qtd_producao"> <br>
+
+        Quantas cervejas você vende por mês? <br>
+        <input type="number" id="vendas_cervejaMes"> <br>
+
+        Quais seus custos mensais? <br>
+        <input type="number" id="custo_mensal"> <br>
+
+        <button onclick="calc()">Mostrar relatório</button>
+
+        <div id="resultado"></div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function calc() {
+        var qtdFermentador = Number(fermentador_qtd.value);
+        var litroFermentador = Number(fermentador_litro.value);
+        var fermentadorPerdido = Number(fermentador_temperatura.value);
+
+        var vendasCervejaMes = Number(vendas_cervejaMes.value);
+        var producaoCervejaMes = Number(qtd_producao.value);
+
+        var lataCustoCerveja = Number(custo_cerveja.value);
+        var custoLitro = Number(custo_litro_cerveja.value);
+        var custoMensal = Number(custo_mensal.value);
+
+        var litroTotal = qtdFermentador * litroFermentador;
+        var litroPerdido = fermentadorPerdido * litroFermentador;
+
+        var cervejasSobrando = producaoCervejaMes - vendasCervejaMes;
+        var receitaSobra = cervejasSobrando * lataCustoCerveja;
+        var receitaPerdida = litroPerdido * custoLitro;
+        var receitaCerveja = lataCustoCerveja * vendasCervejaMes;
+        var lucroCerveja = receitaCerveja / 5;
+
+        var receitaSensor = receitaCerveja + receitaPerdida;
+        var porcentagemSensor = ((receitaSensor - receitaCerveja) / receitaCerveja) * 100;
+
+        var despesas = receitaCerveja - custoMensal;
+
+        resultado.innerHTML =
+            `
+            Você possui ${qtdFermentador} fermentador(es) com ${litroFermentador} litros <br>
+            Você perde ${litroPerdido} litros por cada fermentador por problemas de temperatura <br>
+            Isso significa uma perda de R$${receitaPerdida} de reais em seu negócio <br>
+            Com ${cervejasSobrando} cervejas sobrando, você pode ganhar R$${receitaSobra} reais com a venda <br>
+            
+            Você possui uma receita de R$${receitaCerveja} reais <br>
+            Seu lucro com a venda das cervejas é de R$${lucroCerveja} reais <br>
+
+            Se caso você utilizasse nosso produto, sua receita seria de R${receitaSensor} <br>
+            O que equivale a um aumento de ${porcentagemSensor}% na sua receita <br>
+
+            No final de tudo, sobram R$${despesas} reais gastas com sua produção.
+        `
+
+        if (despesas <= 0) {
+            resultado.innerHTML += `<br><b style="color: red">Você está perdendo dinheiro!!!<b>`;
+        }
+        if (despesas > 0) {
+            resultado.innerHTML += `<br><b style="color: green">Você está ganhando dinheiro!!!<b>`;
+        }
+
+    }
+</script>
