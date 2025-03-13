@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora financeira</title>
+</head>
+
+<body>
+
+    <h1>Calculadora financeira</h1>
+
+    <h2>Dados das Fermentadoras</h2>
+    <p>Qual é quantidade de fermentadoras na sua empressa?</p>
+    <input type="number" id="input_quantidade_de_fermentadoras">
+    <br>
+
+    <p>Qual é o consumo médio delas (Watt)?</p>
+    <input type="number" id="input_consumo_medio_em_watt">
+    <br>
+
+    <p>Qual preço do Kwh na sua região?</p>
+    <input type="number" id="input_preco_do_kwh">
+    <br>
+
+
+    <p>Quantas horas ela ficam acessas durante a fermentação?</p>
+    <input type="number" id="input_quantidade_de_horas">
+    <br>
+
+    <h2>Dados sobre a perda</h2>
+
+    <p>Quantas perda de fermentadoras tivemos por falta de monitoramento de temperatura?</p>
+    <input type="number" id="input_perdas_de_fermentadoras">
+    <br>
+    <br>
+
+    <button onclick="calcular_perda()">Calcular perdas</button>
+    <br><br>
+
+    <div id="div_message">
+    </div>
+
+    <script>
+        function calcular_perda() {
+            var quantidadeDeFermentadoras = Number(input_quantidade_de_fermentadoras.value)
+            var consumoMedioEmKwh = Number(input_consumo_medio_em_watt.value) / 1000
+            var precoDoKwh = Number(input_preco_do_kwh.value)
+            var quantidadeDeHoras = Number(input_quantidade_de_horas.value)
+            var perdasDeFermentadoras = Number(input_perdas_de_fermentadoras.value)
+
+            var consumoTotal = quantidadeDeFermentadoras * consumoMedioEmKwh * quantidadeDeHoras
+            var precoTotal = consumoTotal * precoDoKwh
+
+            div_message.innerHTML = `<p>O consumo  é de ${consumoTotal} Kwh para todas fermentadoras e o custo total é de <span style="color:green;"><b>R$ ${precoTotal}.</b></span></p>`
+
+            if (perdasDeFermentadoras > 0) {
+                var precoDaPerda = perdasDeFermentadoras * consumoMedioEmKwh * quantidadeDeHoras * precoDoKwh
+                div_message.innerHTML += `<p>O custo total das perdas é de <span style="color:red;"><b>R$ ${precoDaPerda}.</b></span></p>`
+            }
+
+            div_message.innerHTML += `<p>se tivesse o sistema <b>Monibeer</b> aminizaria este  problema</p>`
+
+
+        }
+    </script>
+</body>
+
+</html>
