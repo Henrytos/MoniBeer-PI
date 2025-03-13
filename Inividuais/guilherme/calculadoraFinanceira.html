@@ -13,7 +13,7 @@
             <p>O Brasil é o terceiro maior produtor de cerveja do mundo.</p>
             <p>O setor de cerveja artesanal cresceu 35% nos últimos 5 anos.</p>
             <p>O consumo médio per capita no Brasil é de 62 litros por ano.</p>
-            
+            <p>O uso de um monitoramento de sensores de temperatura podem reduzir até 30% das perdas</p>
         </div>
         
         <div>
@@ -26,9 +26,13 @@
         
         <div>
             <h3>Simulação Personalizada</h3>
-            <label>Produção mensal (litros): <input type="number" id="input_producao"></label><br>
-            <label>Percentual médio de perdas (%): <input type="number" id="input_perda"></label><br>
-            <label>Custo médio por litro (R$): <input type="number" id="input_custo"></label><br>
+            Produção mensal (litros): <input type="number" id="input_producao"><br>
+            Percentual médio de perdas (%): <input type="number" id="input_perda"><br>
+            Custo médio por litro (R$): <input type="number" id="input_custo"><br>
+            Quantidade de ml por produto (latinha ou garrafa): <input type="text" id="input_produto">
+            <br>
+            Media de consumo de produtos por cliente (Ex. 1 latinha) <input type="text" id="input_consumo">
+            <br>
             <button onclick="calcular()">Calcular</button>
             <h3 id="div_resultado"></h3>
         </divid=>
@@ -40,13 +44,18 @@
             var producao = Number(input_producao.value);
             var perda = Number(input_perda.value) / 100;
             var custo = Number(input_custo.value);
-
+            var produto = Number(input_produto.value);
+            var consumo = Number(input_consumo.value);
             var perdaFinanceira = (producao * perda) * custo;
-            var economia = perdaFinanceira * 0.3;
+            var economia = perdaFinanceira * 0.20; //estimado que diminua 20% das perdas da cerveja
+            var litrosPerdidos = (producao * perda);
+            var clientesPerdidos = ((litrosPerdidos * 1000)/ produto)/consumo ;
+
 
             div_resultado.innerHTML = `
                 Perda financeira atual: R$ ${perdaFinanceira}<br>
-                Economia estimada com monitoramento: R$ ${economia}
+                Economia estimada com monitoramento: R$ ${economia}<br>
+                Demandas de clientes perdidas ${clientesPerdidos}
             `;
         }
     </script>
