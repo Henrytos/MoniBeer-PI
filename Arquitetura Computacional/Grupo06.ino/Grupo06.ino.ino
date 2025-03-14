@@ -2,9 +2,7 @@ const int PINO_SENSOR_TEMPERATURA = A4; // Indicar a porta analogica que será u
 float temperaturaCelsius; // declaração da variavel que receberá a temperatura em celsius;
 
 void setup(){ //Prepara a função de configuração de ambiente;
-Serial.begin(9600); // inicia a porta serial ou seja, configa a quantidade de bits
-while(!Serial);
-Serial.println("TempMin,Temp,TempMax");
+Serial.begin(9600); // inicia a porta serial ou seja, configa a quantidade de bits que vão transicionar pelo código
 }
 
 void loop(){ // Define o bloco de repetição do código;
@@ -24,6 +22,6 @@ Serial.print("TemperaturaMáxima:");
 Serial.println(TempMax); 
  //Printa a string na mesma linha e ocupa toda linha;
 
-delay(100); //Adiciona 2 segundos de atraso;
+delay(1000); //Adiciona 2 segundos de atraso;
 
 }
