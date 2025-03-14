@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Calculadora Financeira de redução de perdas</title>
+</head>
+<body>
+    
+    <h1><u>Temperaturas Inadequadas</u></h1>
+
+    <p> A falta de um monitoramento correto na etapa de fermentação da cerveja artesanal causa diversos problemas que afetam tanto a qualidade quanto a estabilidade do produto </p>
+    <p> Se as temperaturas estiverem muito altas aumentam a produção de ésteres frutados que podem resultar em aromas indesejáveis, como solvente ou álcool forte.</p>
+    <p> Se a temperatura estiver muito abaixo do indicado, a atividade das leveduras pode diminuir ou até parar, deixando açúcares não fermentados e comprometendo o teor alcoólico desejado. </p>
+    <p> Nosso sistema traz a garantia de uma redução de 60% nas perdas de produtos pelo controle de fermentação inadequado. </p>
+    
+    <h3> Quantos litros são produzidos por mês ? </h3>
+    <input id="input_litros" type="Number">
+
+    <h3> Qual o percentual de perda sem o controle de temperatura na <b style="color: sandybrown;">Fermentação ? </b></h3>
+    <input  id="input_prejuizo" type="Number">
+
+    <h3> Qual é o valor de cada litro ? </h3>
+    <input type="Number" id="input_valor">
+
+    <button onclick="calcular()"> Calcular </button>
+
+    <br> <br>
+
+    <div id="div_mensagem"></div>
+
+    <!-- alguns calculos -->
+    <!-- tempo de retorno = custo do sistema / economia mensal  -->
+     <!-- economia mensal = economia com energia + economia com perdas -->
+    
+</body>
+</html>
+<script>
+    function calcular(){
+        var litros = Number(input_litros.value);
+        var prejuizo = Number(input_prejuizo.value) / 100;
+        var valorL = Number(input_valor.value);
+        var reducao = 0.2; 
+
+        var perdaSem = prejuizo * litros;
+        var economia = perdaSem * reducao;
+        var final = economia * valorL;
+
+  
+    div_mensagem.innerHTML = `O nosso sistema te auxilia na redução das perdas em até 60%. A economia total estimada é de R$ ${final}. Com uma redução nas perdas de ${economia} litros. `
+    }
+</script>
