@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+      <h1>Calculadora Financeira - <b style="color: rgb(211, 195, 10);">MoniBeer</b></h1>
+    Se a temperatura estiver muito alta aumenta a produção de ésteres frutados, que podem resultar em aromas indesejáveis, como solvente ou álcool forte. 
+
+    <br><br>
+    Se a temperatura estiver muito abaixo do indicado, a atividade das leveduras pode diminuir ou até parar, deixando açúcares não fermentados e comprometendo o teor alcoólico desejado. 
+    <br>
+
+    <h3 style="color: red;">Isso afeta diretamente o processo de fabricação ocasionando perdas na qualidade e no sabor da sua cerveja artesanal, por isso é fundamental monitorar a temperatura na etapa de <b style="color: rgb(203, 19, 19);">FERMENTAÇÃO.</b></h3>
+    <br>
+    Inserir tipo da cerveja (IPA ou Pilsen):
+    <br>
+    <input type="text" id="input_tipocerveja">
+    <br><br>
+    Inserir etapa de fermentação atual(primária, secundaria, terciaria):
+    <br>
+    <input type="text" id="input_etapa">
+    <br><br>
+    Inserir valor ganho por litro:
+    <br>
+    <input type="text" id="input_valor">
+    <br><br>
+Inserir total de litros produzido por dia:
+<br>
+<input type="text" id="input_litros">
+<br><br>
+Inserir uma média diária de litros perdidos<br>
+por conta da falta de monitoramento da temperatura
+<br>
+<input type="text" id="input_perdas">
+<br><br>
+<button style="background-color: rgba(173, 233, 82, 0.929);" onclick="analisar()"><b style="color:darkgreen;">Analisar propostas</b></button>
+
+<div id="div_mensagem"></div>
+
+</body>
+</html>
+<script>
+function analisar(){
+var tipo = input_tipocerveja.value;
+var etapa = input_etapa.value;
+var valor = Number(input_valor.value);
+var litros = Number(input_litros.value);
+var perdas = Number(input_perdas.value);
+
+
+if (tipo == "IPA"){
+var tempmax = 22;
+var tempmin = 18;
+var diminuicaoperda = perdas * 0.30;
+var preju = valor * perdas;
+var ganho = ((litros-perdas) + diminuicaoperda);
+//var aumento = valor * diminuicaoperda;
+var aumento = diminuicaoperda * valor;
+
+//var aumento = 
+}
+
+if (tipo == "PILSEN"){
+var tempmax = 14;
+var tempmin = 8;
+var diminuicaoperda = perdas * 0.30;
+var preju = valor * perdas;
+var ganho = ((litros-perdas) + diminuicaoperda);
+//var aumento = valor * diminuicaoperda;
+var aumento = diminuicaoperda * valor;
+}
+
+div_mensagem.innerHTML = `A cerveja do tipo ${tipo} tem uma variação de temperatura no estagio de fermentação na etapa ${etapa} entre ${tempmin}°C e ${tempmax}°C, a média de litros produzidos por dia é de ${litros}L e a média diária de perdas é de ${perdas}L, considerando que o litro esta custando R$${valor} é ocasionado um prejuizo de R$${preju}. Com o sistema de monitoramento de temperatura na fermentação suas perdas vão diminuir em 30% resultando em ${diminuicaoperda} litros a menos perdidos. Tendo um amuento de ${ganho}L. <br>
+<b style="color: rgb(32, 208, 32);">Dessa forma é gerado um aumento de R$${aumento}.</b>`
+
+}
+
+</script>
