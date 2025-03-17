@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Qual a cerveja em questão ("IPA" ou "Pilsen")? 
+    <input type="text" id="input_cerveja">
+    <br><br>
+    Quantas fermentadoras?
+    <input type="text" id="input_fermentadora">
+    <br><br>
+    Quantos litros estão na fermentadora?
+    <input type="text" id="input_litros">
+    <br><br>
+    Qual a temperatura atual das fermentadoras?
+    <input type="text" id="input_temperatura">
+    <br><br>
+    <button onclick="analisar()">Analisar</button>
+    <br><br>
+    <div id="div_mensagem"></div>
+    
+</body>
+</html>
+
+<script>
+    function analisar(){
+        var cerveja = input_cerveja.value
+        var fermentadora = Number(input_fermentadora.value)
+        var litros = Number(input_litros.value)
+        var temperatura = Number(input_temperatura.value)
+        var custo = 7
+        var perda = 0
+        if(cerveja == "Pilsen"){
+            var diferenca_temperatura = (14 -temperatura)*(-1)
+            if( temperatura <= 14){
+                if(temperatura >= 8){
+                div_mensagem.innerHTML = "Sem perdas no momento, a temperatura está ideal"
+            } }
+            if(temperatura > 14){
+                
+                div_mensagem.innerHTML = `A temperatura está ${diferenca_temperatura}º acima do ideal
+                portanto, a perda em questão está associada a qualidade da cerveja, onde existe um excesso de produção de ésteres e álcoois superiores. A perda está em torno de $${(fermentadora * litros * 0.2 * custo)}
+                `
+                    if(temperatura>= 50){
+                        div_mensagem.innerHTML = `A temperatura está ${(14 -temperatura)*(-1)}º acima do ideal
+                portanto, a perda em questão pode chegar em $${(litros * fermentadora * custo)}
+                `
+                    }
+            }
+            if(temperatura<8){
+                div_mensagem.innerHTML = `A temperatura está ${diferenca_temperatura} abaixo do ideal, as leveduras estão menos ativas, existe o risco que elas parem de fermentar`
+            }
+        }
+        if(cerveja == "IPA"){
+            var diferenca_temperatura = (22 -temperatura)*(-1)
+            var diferenca_temperatura_m = (18 - temperatura)
+            if(18 <= temperatura <= 22){
+                div_mensagem.innerHTML = "Sem perdas no momento, a temperatura está ideal"
+            } 
+            if(temperatura > 22){
+                
+                div_mensagem.innerHTML = `A temperatura está ${diferenca_temperatura}º acima do ideal
+                portanto, a perda em questão está associada a qualidade da cerveja, onde existe um excesso de produção de ésteres e álcoois superiores, a perda em questão pode chegar $${(litros *0.2* fermentadora * custo)}
+                `
+                    if(temperatura >= 50){
+                        div_mensagem.innerHTML = `A temperatura está ${(22 -temperatura)*(-1)}º acima do ideal
+                portanto, a perda em questão é de $${(litros * fermentadora * custo)}
+                `
+                    }
+            }
+            if(temperatura < 18){
+                div_mensagem.innerHTML = `A temperatura está ${diferenca_temperatura_m} abaixo do ideal, as leveduras estão menos ativas, existe o risco que elas parem de fermentar`
+
+            }
+        }
+    }
+</script>
