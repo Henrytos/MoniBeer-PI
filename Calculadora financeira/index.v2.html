@@ -15,41 +15,41 @@
     <div>
         <h1>Calculadora: Sensor LM35</h1>
 
-        <p>É extremamente importante o lucro na produção de cervejas artesanais, visto que se tem gastos na produção,
-            água, luz, seguros etc.</p>
-        <p>O lucro de uma cerveja artesanal individual fica em média de 20%</p>
-
+        <p>É extremamente importante o lucro na produção de cervejas artesanais, visto que há gastos na produção, como
+            água,
+            luz, seguros, etc.</p>
+        <p>O lucro de uma cerveja artesanal individual fica, em média, em 20%.</p>
 
         <!-- FERMENTADORAS -->
         Quantos fermentadores você possui? <br>
         <input type="number" id="input_quantidade_de_fermentadoras">
         <br><br>
 
-        Quantos litros possui o seu fermentador? <br>
+        Quantos litros o seu fermentador comporta? <br>
         <input type="number" id="input_quantidade_de_litros">
         <br><br>
 
-        <!-- MUDAR PARA PORCENTAGEM!! --->
-        Qual o percentual que você perdu por problemas de temperatura? <br>
+        Qual o percentual de perdas devido a problemas de temperatura? <br>
         <input type="number" id="input_percentual_de_perdas" value="10" max="100" min="0">
         <br><br>
 
         <!-- CERVEJAS -->
-        Qual o custo por cada litro de cerveja na fabricação? <br>
+        Qual o custo por litro de cerveja na fabricação? <br>
         <input type="number" id="input_custo_do_litro">
         <br><br>
 
-        Quto ganha por cada litro de cerveja <br>
+        Quanto você ganha por litro de cerveja? <br>
         <input type="number" id="input_venda_do_litro">
         <br><br>
 
-        Quais seus custos mensais? <br>
+        Quais são seus custos mensais? <br>
         <input type="number" id="input_custos_mensais">
         <br><br>
 
         <button onclick="gerarRelatorio()">Mostrar relatório</button>
+    </div>
 
-        <div id="div_message"></div>
+    <div id="div_message"></div>
     </div>
     <script>
         function gerarRelatorio() {
