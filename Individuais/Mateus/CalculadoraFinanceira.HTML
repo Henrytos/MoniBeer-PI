@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoniBeer</title>
+</head>
+
+<body>
+        <center>
+            <h1>MoniBeer</h1>
+        </center>
+
+        <h2>ㅤㅤImportância do monitoramento de temperatura:</h2>
+        
+        <p>ㅤㅤㅤA falta de controle de temperatura pode resultar em perdas de até 15% a 20% de produção de cerveja devido a falhas na fermentação ou maturação, dependendo da gravidade do erro e do estágio de produção. Além disso, estudos <br> ㅤㅤㅤmostram que o custo de retrabalho ou perdas causadas por fermentação mal controlada pode representar de 10% a 25% do custo total da produção de uma cerveja.</p>
+        <br><br>
+
+        <center>
+            <h1>Simulador de prejuízo</h1>
+
+            <h4>Quantidade de Litros Produzidos Mensalmente para Cervejas Pilsen e IPA:</h4>
+            <input type="number" id="input_qnt_litros">
+            <br><br>
+
+            <h4>Taxa média de Perda de Produção nos Lotes (%):</h4>
+            <input type="number" id="input_porcentagem">
+            <br><br>
+
+            <h4>Valor do Litro das cervejas(R$):</h4>
+            <input type="number" id="input_preco_litro">
+            <br><br>
+
+            <button onclick="calcular()">Calcular Prejuízo</button>
+            <br>
+            <p id="monibeer"></p>
+        </center>
+</body>
+</html>
+
+<script>
+    function calcular() {
+        var litros = Number(input_qnt_litros.value)
+        var porcentagem = Number(input_porcentagem.value)
+        var preco = Number(input_preco_litro.value)
+
+        var lucro = litros * preco
+        var porcentagem = porcentagem / 100 
+        var litrosPerdidos = litros * porcentagem
+        var perca = litrosPerdidos * preco
+        var percaAnual = perca * 12
+
+        monibeer.innerHTML = `<h3>Dos R$${lucro} que é gerado mensalmente, você perdeu R$${perca} pela falta de monitoramento de temperatura nos tanques de fermentação. <br>
+        Analisando anualmente, isso teria um prejuízo ainda maior, sendo ela $${percaAnual} </h3>`
+    }
+</script>
