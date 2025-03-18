@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora financeira | MoniBeer</title>
+</head>
+
+<body>
+    <h2>
+        Calculadora financeira | MoniBeer
+    </h2>
+
+    <div>
+        <h1>Calculadora: Sensor LM35</h1>
+
+        <p>É extremamente importante o lucro na produção de cervejas artesanais, visto que se tem gastos na produção,
+            água, luz, seguros etc.</p>
+        <p>O lucro de uma cerveja artesanal individual fica em média de 20%</p>
+
+
+        <!-- FERMENTADORAS -->
+        Quantos fermentadores você possui? <br>
+        <input type="number" id="input_quantidade_de_fermentadoras">
+        <br><br>
+
+        Quantos litros possui o seu fermentador? <br>
+        <input type="number" id="input_quantidade_de_litros">
+        <br><br>
+
+        <!-- MUDAR PARA PORCENTAGEM!! --->
+        Qual o percentual que você perdu por problemas de temperatura? <br>
+        <input type="number" id="input_percentual_de_perdas" value="10" max="100" min="0">
+        <br><br>
+
+        <!-- CERVEJAS -->
+        Qual o custo por cada litro de cerveja na fabricação? <br>
+        <input type="number" id="input_custo_do_litro">
+        <br><br>
+
+        Quto ganha por cada litro de cerveja <br>
+        <input type="number" id="input_venda_do_litro">
+        <br><br>
+
+        Quais seus custos mensais? <br>
+        <input type="number" id="input_custos_mensais">
+        <br><br>
+
+        <button onclick="gerarRelatorio()">Mostrar relatório</button>
+
+        <div id="div_message"></div>
+    </div>
+    <script>
+        function gerarRelatorio() {
+            // Coleta de dados da empresa e dos parâmetros
+            var quantidadeFermentadoras = Number(input_quantidade_de_fermentadoras.value);
+            var litrosPorFermentadora = Number(input_quantidade_de_litros.value);
+            var percentualPerdas = Number(input_percentual_de_perdas.value);
+            var precoVendaLitro = Number(input_venda_do_litro.value);
+            var custoPorLitro = Number(input_custo_do_litro.value);
+            var custoMensalTotal = Number(input_custos_mensais.value);
+
+            var totalLitrosProduzidos = quantidadeFermentadoras * litrosPorFermentadora;
+
+
+            // Cálculo das perdas e ganhos com base no percentual de perdas
+            var receitaPerdas = totalLitrosProduzidos * (percentualPerdas / 100) * precoVendaLitro;
+            var receitaComLucros = totalLitrosProduzidos * ((100 - percentualPerdas) / 100) * precoVendaLitro;
+            var lucroDaReceita = totalLitrosProduzidos * ((100 - percentualPerdas) / 100) * (precoVendaLitro - custoPorLitro);
+
+            // Cálculo dos ganhos máximos e aumento de receita possível
+            var receitaMaximaPossivel = receitaPerdas + receitaComLucros;
+            var percentualAumentoLucros = (receitaMaximaPossivel / receitaComLucros) * 100;
+
+            // Cálculo do lucro no final do mês após custos mensais
+            var lucroFinalMes = receitaMaximaPossivel - custoMensalTotal;
+
+            // Exibição dos resultados
+            div_message.innerHTML = `
+                <h4>Sem a MoniBeer</h4>
+                <p>Você possui ${quantidadeFermentadoras} fermentador(es), com ${litrosPorFermentadora} litros cada.</p>
+                <p>Isso significa uma perda de R$${receitaPerdas} no seu negócio devido a um desperdício de ${percentualPerdas}% da produção.</p>
+                <p>Você possui uma receita de R$${receitaComLucros} com a venda das cervejas.</p>
+                <p>Seu lucro com a venda das cervejas, descontados os custos, é de R$${lucroDaReceita}.</p>
+                <h4>Com a MoniBeer</h4>
+                <p>Se você utilizasse nosso produto, sua receita total seria de R$${receitaMaximaPossivel}.</p>
+                <p>Isso representaria um aumento de ${percentualAumentoLucros}% na sua receita.</p>
+                <p>No final de tudo, você teria um lucro de R$${lucroFinalMes} após custos mensais.</p>
+            `;
+
+            // Avaliação do lucro ou prejuízo
+            if (lucroFinalMes > 0) {
+                div_message.innerHTML += `<br><b style="color: green">Você está ganhando dinheiro!</b>`;
+            } else {
+                div_message.innerHTML += `<br><b style="color: red">Você está perdendo dinheiro!</b>`;
+            }
+        }
+
+    </script>
+</body>
+
+</html>
+
+
+
+</body>
+
+</html>
