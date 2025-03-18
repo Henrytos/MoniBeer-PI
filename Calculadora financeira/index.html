@@ -4,149 +4,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora financeira | MoniBeer</title>
+    <title> Calculadora Financeira de redução de perdas</title>
 </head>
 
 <body>
-    <h2>
-        Calculadora financeira | MoniBeer
-    </h2>
+
+    <h1><u>Temperaturas Inadequadas</u></h1>
+
+    <p> Se as temperaturas estiverem muito altas aumentam a produção de ésteres frutados que podem resultar em aromas
+        indesejáveis, como solvente ou álcool forte.
+    </p>
+    <p> Se a temperatura estiver muito abaixo do indicado, a atividade das leveduras pode diminuir ou até parar,
+        deixando açúcares não fermentados e comprometendo o teor alcoólico desejado.
+    </p>
+    <p> Nosso sistema traz a garantia de uma redução de 60% nas perdas de produtos pelo controle de fermentação
+        inadequado.
+    </p>
+
+    <h3> Quantos litros são produzidos por mês ? </h3>
+    <input id="input_litros" type="Number">
+
+    <h3> Qual o percentual de perda sem o controle de temperatura na Fermentação ?
+    </h3>
+    <input id="input_prejuizo" type="Number">
+
+    <h3> Qual é o valor de cada litro ? </h3>
+    <input type="Number" id="input_valor">
+
+    <button onclick="calcular()"> Calcular </button>
+
+    <br> <br>
+
+    <div id="div_mensagem"></div>
 
     <div>
-        <h1>Calculadora: Sensor LM35</h1>
-
-        <p>É extremamente importante o lucro na produção de cervejas artesanais, visto que se tem gastos na produção,
-            água, luz, seguros etc.</p>
-        <p>O lucro de uma cerveja artesanal individual fica em média de 20%</p>
-
-        <!-- FERMENTAÇÃO -->
-        Inserir tipo da cerveja (IPA ou Pilsen):
-        <br>
-        <input type="text" id="input_tipo_de_cerveja">
-        <br><br>
-
-        Inserir etapa de fermentação atual(primária, secundaria, terciaria):
-        <br>
-        <input type="text" id="input_etapa_de_fermentacao">
-        <br><br>
-
-        <!-- FERMENTADORAS -->
-        Quantos fermentadores você possui? <br>
-        <input type="number" id="input_quantidade_de_fermentadoras">
-        <br><br>
-
-        Quantos litros possui o seu fermentador? <br>
-        <input type="number" id="input_quantidade_de_litros">
-        <br><br>
-
-        Qual o número de fermentadoras que você perde por problemas de temperatura? <br>
-        <input type="number" id="input_numero_de_fermentadoras_perdididas">
-        <br><br>
-
-        <!-- CERVEJAS -->
-        Qual o custo por cada litro de cerveja? <br>
-        <input type="number" id="input_custo_do_litro">
-        <br><br>
-
-        Considere uma lata de 250ml: <br>
-        Por quanto você vende a cerveja? <br>
-        <input type="number" id="input_custo_da_unidade">
-        <br><br>
-        Quantas cervejas (lata 250ml) você produz por mês? <br>
-        <input type="number" id="input_quantidade_produzida">
-        <br><br>
-
-        Quantas cervejas você vende por mês? <br>
-        <input type="number" id="input_venda_por_mes">
-        <br><br>
-
-        Quais seus custos mensais? <br>
-        <input type="number" id="input_custos_mensais">
-        <br><br>
-
-        <button onclick="gerarRelatorio()">Mostrar relatório</button>
-
-        <div id="div_message"></div>
+        <h4>
+            dados tirados de <i>prozyn biosolutions for life</i>
+        </h4>
     </div>
 </body>
 
 </html>
-
 <script>
-    function gerarRelatorio() {
-        // definição da cerveja,tipo e temperatura.
-        var tipoDeCerveja = input_tipo_de_cerveja.value
-        var etapaDeFermentacao = input_etapa_de_fermentacao.value
-        var temperaturaMaximaDaCerveja;
-        var temperaturaMinimaDaCerveja;
+    function calcular() {
+        var litros = Number(input_litros.value);
+        var prejuizo = Number(input_prejuizo.value) / 100;
+        var valorL = Number(input_valor.value);
 
-        if (tipoDeCerveja == "IPA") {
-            temperaturaMaximaDaCerveja = 22;
-            temperaturaMinimaDaCerveja = 18;
-        }
-        else if (tipoDeCerveja == "Pilsen") {
-            temperaturaMaximaDaCerveja = 14;
-            temperaturaMinimaDaCerveja = 8;
-        }
-
-        // coleta de dados da empressa e de parametros
-        var quantidadeDeFermentadoras = Number(input_quantidade_de_fermentadoras.value);
-        var quantideDeLitrosPorFermentadora = Number(input_quantidade_de_litros.value);
-        var quantidadeDeFermentadorasPerdidas = Number(input_numero_de_fermentadoras_perdididas.value);
-
-        var valorDaUnidade = Number(input_custo_da_unidade.value);
-        var valorDoLitro = Number(input_custo_do_litro.value);
-
-        var quantidadeDeproducaoNoMes = Number(input_quantidade_produzida.value);
-        var quantidadeDeVendasNoMes = Number(input_venda_por_mes.value);
-
-        var custoMensal = Number(input_custos_mensais.value);
-
-        // calculo de litros fabricados e perdidos
-        var totalDeLitros = quantidadeDeFermentadoras * quantideDeLitrosPorFermentadora;
-        var totalDeLitrosPerdidios = quantidadeDeFermentadorasPerdidas * quantideDeLitrosPorFermentadora;
-
-        //calculo de receita, lucro, ganhos e perdas
-        /* desperdicio */
-        var cervejasSobrandoNoMes = quantidadeDeproducaoNoMes - quantidadeDeVendasNoMes;
-        var receitaDasCervejasSobrandoNoMes = cervejasSobrandoNoMes * valorDaUnidade;
-        var receitaDosLitrosPerdidaNoMes = totalDeLitrosPerdidios * valorDoLitro;
-        /* lucros */
-        var receitaDaCervejaNoMes = valorDaUnidade * quantidadeDeVendasNoMes;
-        var lucroDaCerveja = receitaDaCervejaNoMes * 0.2; // 20% de lucro sobre valor das vendas da cerveja no mês
-
-        // calculo de ganhos sobre receita atual e ganho maximo possivel
-        var ganhosMaximoEmReais = receitaDaCervejaNoMes + receitaDosLitrosPerdidaNoMes;
-        var aumentoDeGanhosEmPorcentagem = ((ganhosMaximoEmReais - receitaDaCervejaNoMes) / receitaDaCervejaNoMes) * 100;
+        var perdaSem = prejuizo * litros;
 
 
-        var lucroNoFinalDoMes = receitaDaCervejaNoMes - custoMensal;
 
-        div_message.innerHTML =
-            `
-                    <p>A cerveja do tipo ${tipoDeCerveja} tem uma variação de temperatura no estagio de fermentação na etapa ${etapaDeFermentacao} entre ${temperaturaMinimaDaCerveja}°C e ${temperaturaMaximaDaCerveja}°C</p>
-                    <p>Você possui ${quantidadeDeFermentadoras} fermentador(es) com ${quantideDeLitrosPorFermentadora} litros </p>
-                    <p>Você perde ${totalDeLitrosPerdidios} litros por cada fermentador por problemas de temperatura </p>
-                    <p>Isso significa uma perda de R$${receitaDosLitrosPerdidaNoMes} de reais em seu negócio </p>
-                    <p>Com ${cervejasSobrandoNoMes} cervejas sobrando, você pode ganhar R$${receitaDasCervejasSobrandoNoMes} reais com a venda</p> 
-              
-                    <p>Você possui uma receita de R$${receitaDaCervejaNoMes} reais </p>
-                    <p>Seu lucro com a venda das cervejas é de R$${lucroDaCerveja} reais </p>
+        div_mensagem.innerHTML = `<h3>Sistemas de monitoramento ocasiona a redução das perdas de 11% a 25% .</h3>`
 
-                    <p>Se caso você utilizasse nosso produto, sua receita seria de R$${ganhosMaximoEmReais}</p> 
-                    <p>O que equivale a um aumento de ${aumentoDeGanhosEmPorcentagem}% na sua receita </p>
-                   
-                    <p>No final de tudo, sobram R$${lucroNoFinalDoMes} reais gastas com sua produção.</p>
-                `
+        var reducao = 0.11
+        var economia = perdaSem * reducao;
+        var final = economia * valorL;
 
-        if (lucroNoFinalDoMes > 0) {
-            div_message.innerHTML += `<br><b style="color: green">Você está ganhando dinheiro!!!<b>`;
-        } else {
-            div_message.innerHTML += `<br><b style="color: red">Você está perdendo dinheiro!!!<b>`;
-        }
+        div_mensagem.innerHTML += `
+        <b>No caso de 11% seria</b>
+        <p>A economia total estimada é de R$ ${final}.</p>
+        <p>Com uma redução nas perdas de ${economia} litros.</p>
+        `
 
+        reducao = 0.25;
+        economia = perdaSem * reducao;
+        final = economia * valorL;
+
+        div_mensagem.innerHTML += `
+        <b>No caso de 25% seria</b>
+        <p>A economia total estimada é de R$ ${final}.</p>
+        <p>Com uma redução nas perdas de ${economia} litros.</p>
+        `
     }
 </script>
-</body>
-
-</html>
