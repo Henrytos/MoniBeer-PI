@@ -1,93 +1,110 @@
 CREATE DATABASE MoniBeer;
 USE MoniBeer;
 
-CREATE TABLE Usuario(
-idUsuario INT PRIMARY KEY auto_increment,
-Nome_Empresa VARCHAR(50) NOT NULL,
+CREATE TABLE Empresa(
+idEmpresa INT PRIMARY KEY auto_increment,
+NomeEmpresa VARCHAR(50) NOT NULL,
 CNPJ CHAR(14) NOT NULL UNIQUE,
-Representante VARCHAR (45) NOT NULL,
+RepresentanteEmpresa VARCHAR (45) NOT NULL,
 Telefone VARCHAR(20) NOT NULL,
-Email_Cliente VARCHAR (250) NOT NULL,
-Senha_Incriptada VARCHAR (255) NOT NULL,
+EmailRepresentante VARCHAR (250) NOT NULL,
+SenharRepresentante VARCHAR(255) NOT NULL,
 Qtd_Maquinas INT NOT NULL
 );
 
-INSERT INTO Usuario VALUES
+INSERT INTO Empresa VALUES
 (default, 'ClubeDoMalte', '11605819000107', 'Marco Polo', '11978235787','marco.polo@clubedomalte.com.br', '976654237', 7),
 (default, 'Colorado', '01366303000195', 'Anderson Silva', '11958432510', 'anderson.silva@colorado.com.br','876543354', 4),
 (default, 'Eisenbahn', '04176513000109', 'Wellington José', '1191153902', 'wellington.jose@eisenbahn.com.br', '345678826', 7),
 (default, 'Ledmont', '33846612000159', 'Richard Montes', '11986654321', 'richard.montes@ledmont.com.br', '229635294', 17),
 (default, 'Barestia', '56426771000108', 'Giovanni Eduardo', '11954739213', 'giovanni.eduardo@barestia.com.br', '123456789', 10);
 
+CREATE TABLE Usuario(
+idUsuario INT PRIMARY KEY auto_increment,
+EmailUsuario VARCHAR (250) NOT NULL,
+Senha_Incriptada VARCHAR (255) NOT NULL,
+TipoUsuario VARCHAR (40) DEFAULT 'Funcionario',
+CONSTRAINT chk_tipo CHECK (TipoUsuario in ('Administrador', 'Funcionario'))
+);
+
+INSERT INTO USUARIO VALUES 
+(DEFAULT, 'silvana.batista@clubedomalte.com.br', '124567983', 'Administrador'),
+(DEFAULT, 'edward.sobrado@clubedomalte.com.br', '987654329', 'Funcionario'),
+(DEFAULT, 'anderson.soares@colorado.com.br', '345267183', 'Administrador'),
+(DEFAULT, 'joana.vilma@colorado.com.br', '123678908', 'Funcionario'),
+(DEFAULT, 'dilma.abelardo@eisenbahn.com.br','345789072', 'Funcionario'),
+(DEFAULT, 'vitorino.milchen@eisebahn.com.br', '56789087654', 'Administrador'),
+(DEFAULT, 'juan.bento@ledmont.com.br', '3678902361', 'Administrador'),
+(DEFAULT, 'jobson.alves@ledmont.com.br', '4563728012', 'Funcionario'),
+(DEFAULT, 'icaro.educardo@barestia.com.br', '5678907654', 'Administrador'),
+(DEFAULT, 'andre.richardo@barestia.com.br', '123678904', 'Funcionario');
+
+
 CREATE TABLE Sensor(
 idSensor INT PRIMARY KEY auto_increment,
 Nome VARCHAR (10),
 statusSensor varchar(20),
 MaquinaAtribuida VARCHAR(30),
-constraint chkStatus check (statusSensor in ('Ativo', 'Inativo', 'Manutenção'))
+CONSTRAINT chkStatus CHECK (statusSensor in ('Ativo', 'Inativo', 'Manutenção'))
 );
-
-
 
 INSERT INTO Sensor VALUES
-(default, 'LM35', 'Ativo', 'Maquina1'),
-(default, 'LM35', 'Ativo', 'Maquina2'),
-(default, 'LM35', 'Manutenção', 'Maquina3'),
-(default, 'LM35', 'Ativo', 'Maquina4'),
-(default, 'LM35', 'Ativo', 'Maquina5'),
+(DEFAULT, 'LM35', 'Ativo', 'Maquina1'),
+(DEFAULT, 'LM35', 'Ativo', 'Maquina2'),
+(DEFAULT, 'LM35', 'Manutenção', 'Maquina3'),
+(DEFAULT, 'LM35', 'Ativo', 'Maquina4'),
+(DEFAULT, 'LM35', 'Ativo', 'Maquina5'),
 (DEFAULT,'LM35', 'Manutenção', '');
 
-
-CREATE TABLE Tanque(
-idTanque INT PRIMARY KEY auto_increment,
-Nome Varchar (40),
+CREATE TABLE Fermentadora(
+idFermentadora INT PRIMARY KEY auto_increment,
+Nome VARCHAR (40),
 Tipo_Cerveja VARCHAR (20),
-Temperaturamax decimal(4,2),
-Temperaturamin decimal (4,2),
+EmpresaAssociada VARCHAR(45),
+Temperaturamax DECIMAL(4,2),
+Temperaturamin DECIMAL (4,2),
 Estagio_Fermentacao CHAR (1),
-constraint chkferm check (Estagio_Fermentacao in ('A', 'B', 'C')),
-constraint chkTipo check (Tipo_Cerveja in ('IPA', 'Pilsen'))
+CONSTRAINT chkferm CHECK (Estagio_Fermentacao in ('A', 'B', 'C')),
+CONSTRAINT chkTipo CHECK (Tipo_Cerveja in ('IPA', 'Pilsen'))
 );
 
-INSERT INTO Tanque VALUES
-(default, 'Maquina1', 'IPA', '24.0', '18.0', 'B'),
-(default, 'Maquina2', 'IPA', '24.0', '18.0', 'A'),
-(default, 'Maquina3', 'Pilsen', '10.0', '12.0', 'B'),
-(default, 'Maquina4','IPA','24.0', '18.0', 'C'),
-(default, 'Maquina5', 'Pilsen', '10.0', '12.0', 'A');
+INSERT INTO Fermentadora VALUES
+(DEFAULT, 'Maquina 2', 'IPA', 'Clube do Malte','24.0', '18.0', 'A'),
+(DEFAULT, 'Maquina 1', 'IPA', 'Clube do Malte', '24.0', '18.0', 'B'),
+(DEFAULT, 'Maquina 4', 'IPA','Clube do Malte','24.0', '18.0', 'C'),
+(DEFAULT, 'Maquina 3', 'Pilsen', 'Clube do Malte', '10.0', '12.0', 'B'),
+(DEFAULT, 'Maquina 2', 'IPA', 'Colorado','24.0', '18.0', 'A'),
+(DEFAULT, 'Maquina 1', 'IPA', 'Colorado', '24.0', '18.0', 'B'),
+(DEFAULT, 'Maquina 3', 'Pilsen', 'Colorado', '10.0', '12.0', 'B'),
+(DEFAULT, 'Maquina 4', 'Pilsen', 'Colorado','10.0', '12.0', 'A');
 
-SELECT * FROM TANQUE;
-SELECT * FROM Usuario;
 
--- Selecionando a tabela Tanque com o id sendo igual a 01
-SELECT * FROM TANQUE WHERE idTanque = 1;
+SELECT * FROM FERMENTADORA;
+SELECT * FROM USUARIO;
+SELECT * FROM SENSOR;
+SELECT * FROM EMPRESA;
 
--- Selecionando a tabela tanque com o nome tendo como a segunda letra A
-SELECT * FROM TANQUE WHERE nome LIKE '_A%';
+-- Selecionando a tabela Fermentadora com o id sendo igual a 01
+SELECT * FROM FERMENTADORA WHERE idFermentadora = 1;
 
--- Inserindo mais um valor a tabela tanque 
-INSERT INTO TANQUE VALUES 
-(DEFAULT, 'Maquina6', 'Pilsen','10.0', '12.0', 'B');
+-- Selecionando a tabela Empresa com o representante tendo como a segunda letra A
+SELECT * FROM EMPRESA WHERE  RepresentanteEmpresa LIKE '%_A';
 
--- Adicionando a tabela USUARIO a coluna confirmação de e-mail, sendo um VARCHAR de até 250, não podendo receber valores nulos 
-ALTER TABLE Usuario ADD COLUMN ConfirmacaoEmail VARCHAR (250);
+-- Atualizamos os dados da tabela sensor em que a máquina atribuida 2 do id 2 para máquina 6
+UPDATE SENSOR SET MaquinaAtribuida = 'Maquina 6' WHERE idSensor = 2;
 
--- Selecionando a tabela usuario completa, para fazer updatesde confirmação de e-mail, do que já tem de dados na tabela, pelo id.
-SELECT * FROM Usuario;
-UPDATE USUARIO set ConfirmacaoEmail = 'marco.polo@clubedomalte.com.br' WHERE idUsuario = 1;
-UPDATE USUARIO SET ConfirmacaoEmail = 'anderson.silva@colorado.com.br' WHERE idUsuario = 2;
-UPDATE USUARIO SET ConfirmacaoEmail = 'welington.jose@eisenbahn.com.br' WHERE idUsuario = 3;
-UPDATE USUARIO SET ConfirmacaoEmail = 'richard.montes@ledmont.com.br' WHERE idUsuario = 4;
-UPDATE USUARIO SET ConfirmacaoEmail ='giovanni.eduardo@barestia.com.br' WHERE idUsuario = 5;
+-- Selecionando o tipo de cerveja da tabela fermentadora em que caso o estagio de fermentacao for A aparecer 1 senão Fermentação Inicial.
+SELECT Tipo_Cerveja, CASE WHEN Estagio_Fermentacao = 'A' THEN 'Fermentação Inicial' ELSE 'Em outras Etapas' END AS EtapaFermentacao FROM Fermenadora;
 
--- Selecionamos a coluna Senhaincriptada e apelidamos de Senha tabela usuario.
-SELECT Senha_Incriptada AS Senha FROM Usuario;
 
--- Selecionando a tabela usuarios, a quantidade de maquinas que não estão preenchidas como 'A definir' na tabela Usuario
-SELECT IFNULL(Qtd_maquinas, '0') AS quantidade_maquinas FROM Usuario;
+-- DELETE DE UMA EMPRESA 
+DELETE FROM EMPRESA WHERE idEmpresa = 6; 
 
--- Selecionando o tipo de cerveja da tabela tanque em que caso o estagio de fermentacao for A aparecer 1 senão 0.
-SELECT Tipo_Cerveja, CASE WHEN Estagio_Fermentacao = 'A' THEN 1 ELSE 0 END AS EtapaFermentacao FROM Tanque;
+
+
+
+
+
 
 
 
