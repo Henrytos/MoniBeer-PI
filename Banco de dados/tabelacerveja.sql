@@ -8,7 +8,7 @@ CNPJ CHAR(14) NOT NULL UNIQUE,
 RepresentanteEmpresa VARCHAR (45) NOT NULL,
 Telefone VARCHAR(20) NOT NULL,
 EmailRepresentante VARCHAR (250) NOT NULL,
-SenhaRepresentante VARCHAR(255) NOT NULL,
+SenharRepresentante VARCHAR(255) NOT NULL,
 Qtd_Maquinas INT NOT NULL
 );
 
@@ -61,8 +61,8 @@ idFermentadora INT PRIMARY KEY auto_increment,
 Nome VARCHAR (40),
 Tipo_Cerveja VARCHAR (20),
 EmpresaAssociada VARCHAR(45),
-TemperaturaMax DECIMAL(4,2),
-TemperaturaMin DECIMAL (4,2),
+Temperaturamax DECIMAL(4,2),
+Temperaturamin DECIMAL (4,2),
 Estagio_Fermentacao CHAR (1),
 CONSTRAINT chkferm CHECK (Estagio_Fermentacao in ('A', 'B', 'C')),
 CONSTRAINT chkTipo CHECK (Tipo_Cerveja in ('IPA', 'Pilsen'))
@@ -90,40 +90,21 @@ SELECT * FROM FERMENTADORA WHERE idFermentadora = 1;
 -- Selecionando a tabela Empresa com o representante tendo como a segunda letra A
 SELECT * FROM EMPRESA WHERE  RepresentanteEmpresa LIKE '%_A';
 
--- Selecionando a tabela Fermentadora onde a empresa associada tenha a letra M entre seu nome
-SELECT * FROM Fermentadora WHERE EmpresaAssociada LIKE '%M%';
-
--- Selecionando a tabela usuário onde a primeira letra do email contenha a letra A
-SELECT * FROM usuario WHERE EmailUsuario LIKE 'A%';
-
 -- Atualizamos os dados da tabela sensor em que a máquina atribuida 2 do id 2 para máquina 6
 UPDATE SENSOR SET MaquinaAtribuida = 'Maquina 6' WHERE idSensor = 2;
 
 -- Selecionando o tipo de cerveja da tabela fermentadora em que caso o estagio de fermentacao for A aparecer 1 senão Fermentação Inicial.
 SELECT Tipo_Cerveja, CASE WHEN Estagio_Fermentacao = 'A' THEN 'Fermentação Inicial' ELSE 'Em outras Etapas' END AS EtapaFermentacao FROM Fermenadora;
 
+
 -- DELETE DE UMA EMPRESA 
 DELETE FROM EMPRESA WHERE idEmpresa = 6; 
 
--- Mostrando os metadados (dados dos dados) da tabela empresa
-DESCRIBE empresa;
-
--- apagando os dados da tabela empresa e depois exibindo
-TRUNCATE empresa;
-SELECT * FROM empresa;
-
--- apelidando os campos empresa e representante para melhor visualização 
+-- Apelidando os campos empresa e representante para melhor visualização 
 SELECT Empresa.nomeEmpresa AS nomeDaEmpresa, Empresa.RepresentanteEmpresa AS Representante FROM Empresa;
 
--- Dropando a tabela empresa
-DROP TABLE empresa;
-
--- Alterando a tabela sensor 
-ALTER TABLE sensor DROP COLUMN MaquinaAtribuida;
-ALTER TABLE sensor ADD COLUMN MaquinaAtribuida VARCHAR(30);
-ALTER TABLE sensor RENAME COLUMN MaquinaAtribuida TO MaquinaSelecionada;
-ALTER TABLE sensor RENAME COLUMN MaquinaSelecionada TO MaquinaAtribuida;
-ALTER TABLE sensor ADD CONSTRAINT chk_nome CHECK (Nome IN('LM35'));
+-- Alterando a tabela sensor, modificando a coluna MaquinaAtribuida para VARCHAR(40).
+ALTER TABLE SENSOR MODIFY COLUMN MaquinaAtribuida VARCHAR(40);
 
 
 
