@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+</head>
+<body>
+    <h1 style="color: rgb(70, 70, 139);">CALCULADORA FINANCEIRA</h1>
+    <h3 style="color: rgb(255, 255, 255); background-color: rgb(4, 15, 78);">Monitoramento no processo de fermentação das cervejas artesanais IPA e Pilsen</h3>
+
+    Quantidade de litros colocado na fermentadora: <br>
+    <input type="text" id="input_fermentadora"><br><br>
+
+    Custo total de ingredientes para a fermentação: <br>
+    <input type="text" id="input_ingredientes"> <br><br>
+
+    Tempo de fermentação sem o monitoramento de tempo real: <br>
+    <input type="text" id="input_tempoFermentadora"><br><br>
+
+    Quantidade de energia gasta pela máquina em (kWh): <br>
+    <input type="text" id="input_kwh"><br><br>
+
+    Qual o custo de energia: <br>
+    <input type="text" id="input_custoEnergia"> <br><br>
+
+
+    <button style="color: aliceblue; background-color: rgb(70, 70, 139);" onclick="Calcular()">Ver Financeamento</button>
+    <div id="div_msg"></div>
+</body>
+</html>
+
+<script>
+    function Calcular(){
+        var litrosFermentadora = Number(input_fermentadora.value);
+        var custoIngredientes = Number(input_ingredientes.value);
+        var tempoFermentadora = Number(input_tempoFermentadora.value)
+        var kwh = Number(input_kwh.value);
+        var custoEnergia = Number(input_custoEnergia.value);
+
+        var gastoLitros = custoIngredientes / litrosFermentadora;
+        var totalgastoLitros = litrosFermentadora * gastoLitros;
+
+        var gastoTotalEnergia = kwh * custoEnergia;
+        var consumoTotal = totalgastoLitros + gastoTotalEnergia;
+        var tempoReduzido = tempoFermentadora - (tempoFermentadora * 20/100);
+    
+        div_msg.innerHTML = `<br><br>- Seu gasto por litro: R$${gastoLitros}. <br> 
+        - Na fermentadora você utiliza: ${litrosFermentadora}L, então o <b>custo será de R$${totalgastoLitros}</b>.<br> 
+        - Gasto total de energia em uma única máquina: R$${gastoTotalEnergia} <br>
+        <p style = "color: red;">- Caso vc não tenha um bom monitoramento na temperatura no processo de fermentação, você pode perder R$${totalgastoLitros} + R$${gastoTotalEnergia} no gasto de energia, dando um total de R$${consumoTotal} de perca.</p>
+        <p style = "color: blue">- Com o monitoramento em tempo real, a redução de gasto de energia poderá ser de 20% e o tempo de fermentação reduzira para ${tempoReduzido} horas </p> <br>
+        - Assim reduzirá os gastos desnescessários de energia, porque sem monitoramento, o sistema de resfriamento ou aquecimento podem funcionar além do necessário.
+        <p style = "color: green;">Resultado: Tempo reduzido menos consumo de energia sem necessidade.</p><br>
+        `
+    }
+    
+</script>
