@@ -14,35 +14,38 @@
     <p> Se as temperaturas estiverem muito altas, aumentam a produção de ésteres frutados que podem resultar em aromas
         indesejáveis, como solvente ou álcool forte.
     </p>
+
     <p> Se a temperatura estiver muito abaixo do indicado, a atividade das leveduras pode diminuir ou até parar,
         deixando açúcares não fermentados e comprometendo o teor alcoólico desejado.
     </p>
 
     <p>
-        segundo o tcc de <b>IZA MARIA GOMES DOS SANTOS</b> intitulado
-        <u>
-            <b>
-                PRINCIPAIS IMPACTOS NA QUALIDADE DA
-                FERMENTAÇÃO CERVEJEIRA
-            </b>
-        </u>
-        <br>
-        disponível em
-        :https://repositorio.ufpb.br/jspui/bitstream/123456789/25006/1/Principais%20impactos%20na%20qualidade%20da%20fermenta%C3%A7%C3%A3o%20cervejeira.pdf
-        <br>
-        que traz a tese que <i>o impacto dos cuidados necessários para garantir a qualidade
-            do processo evitando desperdícios durante o processo de fermentação de cerveja</i>,
+        <b>PRINCIPAIS IMPACTOS NA QUALIDADE DA FERMENTAÇÃO
+            CERVEJEIRA(<i>iza maria gomes dos santos</i>)</b>: <br>
+        <i>https://repositorio.ufpb.br/jspui/bitstream/123456789/25006/1/Principais%20impactos%20na%20qualidade%20da%20fermenta%C3%A7%C3%A3o%20cervejeira.pdf</i>
+    </p>
+    <p>
+        <b>REDUÇÃO DE PERDAS DE EXTRATO NO PROCESSO DE FABRICAÇÃO DE
+            CERVEJA NA ÁREA DA FERMENTAÇÃO ( <i>denilson da ilva Vaz</i> )</b>:<br>
+        <i>https://aprepro.org.br/conbrepro/2019/anais/arquivos/09242019_160922_5d8a74aa9a367.pdf</i>
+    </p>
+    <p>
+
+        <b>COMO MELHORAR O
+            RENDIMENTO NO
+            PROCESSO CERVEJEIRO( <i>prozyn biosolutions for life</i> )</b> :<br>
+        <i>https://www.agraria.com.br/extranet_2016/uploads/AgromalteArquivo/palestra_8___produzindo_mais_com_menos_1596199309457.pdf</i>
     </p>
 
 
-    <h3> Quantos litros são produzidos por mês ? </h3>
+    <h2> Quantos litros são produzidos por mês ? </h2>
     <input id="input_litros" type="Number">
 
-    <h3>Percentual de perdas por conta da falta de monitoramento de temperatura no processo de fermentação?</h3>
+    <h2>Percentual de perdas por conta da falta de monitoramento de temperatura no processo de fermentação?</h2>
     <input id="input_prejuizo" type="Number">
 
-    <h3> Qual é o valor de cada litro na fabricação ? </h3>
-    <input type="Number" id="input_valor">
+    <h2> Qual é o valor de cada litro na fabricação ? </h2>
+    <input id="input_valor" type="Number">
     <br>
     <br>
     <button onclick="calcular()"> Calcular Perdas</button>
@@ -61,33 +64,33 @@
         var prejuizoEmPorcentagem = Number(input_prejuizo.value) / 100;
         var valorPorLitro = Number(input_valor.value);
 
-        // calculo de perda total(litros e reais)
+        // calculo de perda total(litros e reais) 
         var perdaDeLitros = prejuizoEmPorcentagem * totalDeLitros;
         var perdaFinanceira = perdaDeLitros * valorPorLitro
 
         if (prejuizoEmPorcentagem >= 0 && prejuizoEmPorcentagem <= 1) { //perda entre 0% a 100%
 
-            div_mensagem.innerHTML = `<h3>Nosso sistema de monitoramento tem expectativa de ocasionar uma redução das perdas de 11% a 25%. </h3>`
+            div_mensagem.innerHTML = `<h3>Nosso sistema de monitoramento tem expectativa de ocasionar uma redução das perdas de 13% a 36%. </h3>`
 
             // calculo de redução de perdas, economia(litros e reais)
-            var reducaoDasPerdas = 0.11
-            var economiaDosLitros = perdaDeLitros * reducaoDasPerdas;
-            var economiaTotalEmReais = economiaDosLitros * valorPorLitro;
+            var reducaoDasPerdas = 13
+            var economiaDosLitros = (perdaDeLitros * (reducaoDasPerdas / 100));
+            var economiaTotalEmReais = (economiaDosLitros * valorPorLitro);
 
             div_mensagem.innerHTML += `
-            <p>Com base nos dados informados o prejuizo  atual de litros é de <b>${perdaDeLitros}L</b> e a financeira de <b>R$${perdaFinanceira}</b></p>
+            <p>Com base nos dados informados o prejuizo  atual de litros é de <b>${perdaDeLitros.toFixed(2)}L</b> e a financeira de <b>R$${perdaFinanceira.toFixed(2)}</b></p>
             <p> 
-                Com redução de <b>${reducaoDasPerdas * 100}%</b>, a perda cairá de ${perdaDeLitros}L para <b>${perdaDeLitros - economiaDosLitros}L</b> (${economiaDosLitros}L de redução), totalizando <b>R$${perdaFinanceira - economiaTotalEmReais}</b> (R$${economiaTotalEmReais} de redução).
+                Com redução de <b>${reducaoDasPerdas.toFixed(2)}%</b>, a perda cairá de ${perdaDeLitros.toFixed(2)}L para <b>${(perdaDeLitros - economiaDosLitros).toFixed(2)}L</b> (${economiaDosLitros.toFixed(2)}L de redução), totalizando <b>R$${(perdaFinanceira - economiaTotalEmReais).toFixed(2)}</b> (R$${economiaTotalEmReais.toFixed(2)} de redução).
             </p>
                 `
 
             // calculo de redução de perdas, economia(litros e reais)
-            reducaoDasPerdas = 0.25;
-            economiaDosLitros = perdaDeLitros * reducaoDasPerdas;
-            economiaTotalEmReais = economiaDosLitros * valorPorLitro;
+            reducaoDasPerdas = 36;
+            economiaDosLitros = perdaDeLitros * (reducaoDasPerdas / 100)
+            economiaTotalEmReais = economiaDosLitros * valorPorLitro
 
             div_mensagem.innerHTML += `
-            <p>Com redução de <b>${reducaoDasPerdas * 100}%</b>, a perda cairá de ${perdaDeLitros}L para <b>${perdaDeLitros - economiaDosLitros}L</b> (${economiaDosLitros}L de redução), totalizando <b>R$${perdaFinanceira - economiaTotalEmReais}</b> (R$${economiaTotalEmReais} de redução).</p>
+            <p>Com redução de <b>${reducaoDasPerdas.toFixed(2)}%</b>, a perda cairá de ${perdaDeLitros.toFixed(2)}L para <b>${(perdaDeLitros - economiaDosLitros).toFixed(2)}L</b> (${economiaDosLitros.toFixed(2)}L de redução), totalizando <b>R$${(perdaFinanceira - economiaTotalEmReais).toFixed(2)}</b> (R$${economiaTotalEmReais.toFixed(2)} de redução).</p>
                 `
         }
         else { // perda fora de 0% e 100%
