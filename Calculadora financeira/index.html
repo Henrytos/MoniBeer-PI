@@ -4,77 +4,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Calculadora Financeira de redução de perdas</title>
+    <title>MoniBeer</title>
 </head>
 
 <body>
 
-    <h1><u>Temperaturas Inadequadas</u></h1>
+    <h1><u>Calculadora Financeira de Redução de Perdas No Processo De Fermentação</u></h1>
 
-    <p> Se as temperaturas estiverem muito altas aumentam a produção de ésteres frutados que podem resultar em aromas
+    <p> Se as temperaturas estiverem muito altas, aumentam a produção de ésteres frutados que podem resultar em aromas
         indesejáveis, como solvente ou álcool forte.
     </p>
     <p> Se a temperatura estiver muito abaixo do indicado, a atividade das leveduras pode diminuir ou até parar,
         deixando açúcares não fermentados e comprometendo o teor alcoólico desejado.
     </p>
-    <p> Nosso sistema traz a garantia de uma redução de 60% nas perdas de produtos pelo controle de fermentação
-        inadequado.
+
+    <p>
+        segundo o tcc de <b>IZA MARIA GOMES DOS SANTOS</b> intitulado
+        <u>
+            <b>
+                PRINCIPAIS IMPACTOS NA QUALIDADE DA
+                FERMENTAÇÃO CERVEJEIRA
+            </b>
+        </u>
+        <br>
+        disponível em
+        :https://repositorio.ufpb.br/jspui/bitstream/123456789/25006/1/Principais%20impactos%20na%20qualidade%20da%20fermenta%C3%A7%C3%A3o%20cervejeira.pdf
+        <br>
+        que traz a tese que <i>o impacto dos cuidados necessários para garantir a qualidade
+            do processo evitando desperdícios durante o processo de fermentação de cerveja</i>,
     </p>
+
 
     <h3> Quantos litros são produzidos por mês ? </h3>
     <input id="input_litros" type="Number">
 
-    <h3> Qual o percentual de perda sem o controle de temperatura na Fermentação ?
-    </h3>
+    <h3>Percentual de perdas por conta da falta de monitoramento de temperatura no processo de fermentação?</h3>
     <input id="input_prejuizo" type="Number">
 
-    <h3> Qual é o valor de cada litro ? </h3>
+    <h3> Qual é o valor de cada litro na fabricação ? </h3>
     <input type="Number" id="input_valor">
-
-    <button onclick="calcular()"> Calcular </button>
+    <br>
+    <br>
+    <button onclick="calcular()"> Calcular Perdas</button>
 
     <br> <br>
 
     <div id="div_mensagem"></div>
 
-    <div>
-        <h4>
-            dados tirados de <i>prozyn biosolutions for life</i>
-        </h4>
-    </div>
 </body>
 
 </html>
 <script>
     function calcular() {
-        var litros = Number(input_litros.value);
-        var prejuizo = Number(input_prejuizo.value) / 100;
-        var valorL = Number(input_valor.value);
+        // coleta de dados
+        var totalDeLitros = Number(input_litros.value);
+        var prejuizoEmPorcentagem = Number(input_prejuizo.value) / 100;
+        var valorPorLitro = Number(input_valor.value);
 
-        var perdaSem = prejuizo * litros;
+        // calculo de perda total(litros e reais)
+        var perdaDeLitros = prejuizoEmPorcentagem * totalDeLitros;
+        var perdaFinanceira = perdaDeLitros * valorPorLitro
 
+        if (prejuizoEmPorcentagem >= 0 && prejuizoEmPorcentagem <= 1) { //perda entre 0% a 100%
 
+            div_mensagem.innerHTML = `<h3>Nosso sistema de monitoramento tem expectativa de ocasionar uma redução das perdas de 11% a 25%. </h3>`
 
-        div_mensagem.innerHTML = `<h3>Sistemas de monitoramento ocasiona a redução das perdas de 11% a 25% .</h3>`
+            // calculo de redução de perdas, economia(litros e reais)
+            var reducaoDasPerdas = 0.11
+            var economiaDosLitros = perdaDeLitros * reducaoDasPerdas;
+            var economiaTotalEmReais = economiaDosLitros * valorPorLitro;
 
-        var reducao = 0.11
-        var economia = perdaSem * reducao;
-        var final = economia * valorL;
+            div_mensagem.innerHTML += `
+            <p>Com base nos dados informados o prejuizo  atual de litros é de <b>${perdaDeLitros}L</b> e a financeira de <b>R$${perdaFinanceira}</b></p>
+            <p> 
+                Com redução de <b>${reducaoDasPerdas * 100}%</b>, a perda cairá de ${perdaDeLitros}L para <b>${perdaDeLitros - economiaDosLitros}L</b> (${economiaDosLitros}L de redução), totalizando <b>R$${perdaFinanceira - economiaTotalEmReais}</b> (R$${economiaTotalEmReais} de redução).
+            </p>
+                `
 
-        div_mensagem.innerHTML += `
-        <b>No caso de 11% seria</b>
-        <p>A economia total estimada é de R$ ${final}.</p>
-        <p>Com uma redução nas perdas de ${economia} litros.</p>
-        `
+            // calculo de redução de perdas, economia(litros e reais)
+            reducaoDasPerdas = 0.25;
+            economiaDosLitros = perdaDeLitros * reducaoDasPerdas;
+            economiaTotalEmReais = economiaDosLitros * valorPorLitro;
 
-        reducao = 0.25;
-        economia = perdaSem * reducao;
-        final = economia * valorL;
-
-        div_mensagem.innerHTML += `
-        <b>No caso de 25% seria</b>
-        <p>A economia total estimada é de R$ ${final}.</p>
-        <p>Com uma redução nas perdas de ${economia} litros.</p>
-        `
+            div_mensagem.innerHTML += `
+            <p>Com redução de <b>${reducaoDasPerdas * 100}%</b>, a perda cairá de ${perdaDeLitros}L para <b>${perdaDeLitros - economiaDosLitros}L</b> (${economiaDosLitros}L de redução), totalizando <b>R$${perdaFinanceira - economiaTotalEmReais}</b> (R$${economiaTotalEmReais} de redução).</p>
+                `
+        }
+        else { // perda fora de 0% e 100%
+            div_mensagem.innerHTML = `A porcentagem da perda está incorreto , precisa estar no intervalo de 0-100 %`
+        }
     }
 </script>
