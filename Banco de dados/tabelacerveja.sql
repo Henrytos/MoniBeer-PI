@@ -1,6 +1,7 @@
 CREATE DATABASE MoniBeer;
 USE MoniBeer;
 
+
 CREATE TABLE Empresa(
 idEmpresa INT PRIMARY KEY auto_increment,
 NomeEmpresa VARCHAR(50) NOT NULL,
@@ -8,21 +9,21 @@ CNPJ CHAR(14) NOT NULL UNIQUE,
 RepresentanteEmpresa VARCHAR (45) NOT NULL,
 Telefone VARCHAR(20) NOT NULL,
 EmailRepresentante VARCHAR (250) NOT NULL,
-SenharRepresentante VARCHAR(255) NOT NULL,
-Qtd_Maquinas INT NOT NULL
+SenhaRepresentante VARCHAR(255) NOT NULL,
+QtdMaquinas INT NOT NULL
 );
 
 INSERT INTO Empresa VALUES
-(default, 'ClubeDoMalte', '11605819000107', 'Marco Polo', '11978235787','marco.polo@clubedomalte.com.br', '976654237', 7),
-(default, 'Colorado', '01366303000195', 'Anderson Silva', '11958432510', 'anderson.silva@colorado.com.br','876543354', 4),
-(default, 'Eisenbahn', '04176513000109', 'Wellington José', '1191153902', 'wellington.jose@eisenbahn.com.br', '345678826', 7),
-(default, 'Ledmont', '33846612000159', 'Richard Montes', '11986654321', 'richard.montes@ledmont.com.br', '229635294', 17),
-(default, 'Barestia', '56426771000108', 'Giovanni Eduardo', '11954739213', 'giovanni.eduardo@barestia.com.br', '123456789', 10);
+(DEFAULT, 'ClubeDoMalte', '11605819000107', 'Marco Polo', '11978235787','marco.polo@clubedomalte.com.br', '976654237', 7),
+(DEFAULT, 'Colorado', '01366303000195', 'Anderson Silva', '11958432510', 'anderson.silva@colorado.com.br','876543354', 4),
+(DEFAULT, 'Eisenbahn', '04176513000109', 'Wellington José', '1191153902', 'wellington.jose@eisenbahn.com.br', '345678826', 7),
+(DEFAULT, 'Ledmont', '33846612000159', 'Richard Montes', '11986654321', 'richard.montes@ledmont.com.br', '229635294', 17),
+(DEFAULT, 'Barestia', '56426771000108', 'Giovanni Eduardo', '11954739213', 'giovanni.eduardo@barestia.com.br', '123456789', 10);
 
 CREATE TABLE Usuario(
 idUsuario INT PRIMARY KEY auto_increment,
 EmailUsuario VARCHAR (250) NOT NULL,
-Senha_Incriptada VARCHAR (255) NOT NULL,
+SenhaIncriptada VARCHAR (255) NOT NULL,
 TipoUsuario VARCHAR (40) DEFAULT 'Funcionario',
 CONSTRAINT chk_tipo CHECK (TipoUsuario in ('Administrador', 'Funcionario'))
 );
@@ -43,7 +44,7 @@ INSERT INTO USUARIO VALUES
 CREATE TABLE Sensor(
 idSensor INT PRIMARY KEY auto_increment,
 Nome VARCHAR (10),
-statusSensor varchar(20),
+StatusSensor varchar(20),
 MaquinaAtribuida VARCHAR(30),
 CONSTRAINT chkStatus CHECK (statusSensor in ('Ativo', 'Inativo', 'Manutenção'))
 );
@@ -54,18 +55,18 @@ INSERT INTO Sensor VALUES
 (DEFAULT, 'LM35', 'Manutenção', 'Maquina3'),
 (DEFAULT, 'LM35', 'Ativo', 'Maquina4'),
 (DEFAULT, 'LM35', 'Ativo', 'Maquina5'),
-(DEFAULT,'LM35', 'Manutenção', '');
+(DEFAULT, 'LM35', 'Manutenção', '');
 
 CREATE TABLE Fermentadora(
 idFermentadora INT PRIMARY KEY auto_increment,
 Nome VARCHAR (40),
-Tipo_Cerveja VARCHAR (20),
+TipoCerveja VARCHAR (20),
 EmpresaAssociada VARCHAR(45),
 Temperaturamax DECIMAL(4,2),
 Temperaturamin DECIMAL (4,2),
-Estagio_Fermentacao CHAR (1),
-CONSTRAINT chkferm CHECK (Estagio_Fermentacao in ('A', 'B', 'C')),
-CONSTRAINT chkTipo CHECK (Tipo_Cerveja in ('IPA', 'Pilsen'))
+EstagioFermentacao CHAR (1),
+CONSTRAINT chkferm CHECK (EstagioFermentacao in ('A', 'B', 'C')),
+CONSTRAINT chkTipo CHECK (TipoCerveja in ('IPA', 'Pilsen'))
 );
 
 INSERT INTO Fermentadora VALUES
@@ -94,11 +95,11 @@ SELECT * FROM EMPRESA WHERE  RepresentanteEmpresa LIKE '%_A';
 UPDATE SENSOR SET MaquinaAtribuida = 'Maquina 6' WHERE idSensor = 2;
 
 -- Selecionando o tipo de cerveja da tabela fermentadora em que caso o estagio de fermentacao for A aparecer 1 senão Fermentação Inicial.
-SELECT Tipo_Cerveja, CASE WHEN Estagio_Fermentacao = 'A' THEN 'Fermentação Inicial' ELSE 'Em outras Etapas' END AS EtapaFermentacao FROM Fermenadora;
-
+SELECT TipoCerveja, CASE WHEN EstagioFermentacao = 'A' THEN 'Fermentação Inicial' ELSE 'Em outras Etapas' END AS EtapaFermentacao FROM Fermentadora;
 
 -- DELETE DE UMA EMPRESA 
 DELETE FROM EMPRESA WHERE idEmpresa = 6; 
+SELECT * FROM EMPRESA;
 
 -- Apelidando os campos empresa e representante para melhor visualização 
 SELECT Empresa.nomeEmpresa AS nomeDaEmpresa, Empresa.RepresentanteEmpresa AS Representante FROM Empresa;
