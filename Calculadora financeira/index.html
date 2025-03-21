@@ -68,7 +68,7 @@
         var perdaDeLitros = (prejuizoEmPorcentagem / 100) * totalDeLitros;
         var perdaFinanceira = perdaDeLitros * valorPorLitro
 
-        if (0 <= prejuizoEmPorcentagem && prejuizoEmPorcentagem <= 100 && valorPorLitro > 0 && totalDeLitros > 0) { //perda entre 0% a 100%
+        if (0 <= prejuizoEmPorcentagem && prejuizoEmPorcentagem <= 100 && valorPorLitro > 0 && totalDeLitros > 0) { //caso dados sejam válidos
 
             div_mensagem.innerHTML = `<h3>Nosso sistema de monitoramento tem expectativa de ocasionar uma redução das perdas de 10% a 25%. </h3>`
 
@@ -79,10 +79,10 @@
 
             var totalDeCusto = totalDeLitros * valorPorLitro
             div_mensagem.innerHTML += `
-            <p>Com total de <b>${totalDeLitros.toFixed(2)}L</b> a preço unitário de <b>R$${valorPorLitro.toFixed(2)}</b> , totalizaria <b>R$${totalDeCusto.toFixed(2)}</b> de custo  </p>
-            <p>Com perda de <b>${prejuizoEmPorcentagem}%</b> o prejuizo  atual é de  <b style='color:red'>${perdaDeLitros.toFixed(2)}L</b> e a financeira de <b style='color:red'>R$${perdaFinanceira.toFixed(2)}</b></p>
+            <p>Com total de <b>${totalDeLitros}L</b> a preço unitário de <b>R$${valorPorLitro}</b> , totalizaria <b>R$${totalDeCusto}</b> de custo  </p>
+            <p>Com perda de <b>${prejuizoEmPorcentagem}%</b> o prejuizo  atual é de  <b style='color:red'>${perdaDeLitros}L</b> e a financeira de <b style='color:red'>R$${perdaFinanceira}</b></p>
             <p> 
-                Com redução de <b>${reducaoDasPerdas.toFixed(2)}%</b>, a perda cairá de ${perdaDeLitros.toFixed(2)}L para <b style='color:green'>${(perdaDeLitros - economiaDosLitros).toFixed(2)}L</b> (${economiaDosLitros.toFixed(2)}L de redução), totalizando <b style='color:green'>R$${(perdaFinanceira - economiaTotalEmReais).toFixed(2)}</b> (R$${economiaTotalEmReais.toFixed(2)} de redução).
+                Com redução de <b>${reducaoDasPerdas}%</b>, a perda cairá de ${perdaDeLitros}L para <b style='color:green'>${(perdaDeLitros - economiaDosLitros)}L</b> (${economiaDosLitros}L de redução), totalizando <b style='color:green'>R$${(perdaFinanceira - economiaTotalEmReais)}</b> (R$${economiaTotalEmReais} de redução).
             </p>
                 `
 
@@ -92,11 +92,11 @@
             economiaTotalEmReais = economiaDosLitros * valorPorLitro
 
             div_mensagem.innerHTML += `
-            <p>Com redução de <b>${reducaoDasPerdas.toFixed(2)}%</b>, a perda cairá de ${perdaDeLitros.toFixed(2)}L para <b style='color:green'>${(perdaDeLitros - economiaDosLitros).toFixed(2)}L</b> (${economiaDosLitros.toFixed(2)}L de redução), totalizando <b style='color:green'>R$${(perdaFinanceira - economiaTotalEmReais).toFixed(2)}</b> (R$${economiaTotalEmReais.toFixed(2)} de redução).</p>
+            <p>Com redução de <b>${reducaoDasPerdas}%</b>, a perda cairá de ${perdaDeLitros}L para <b style='color:green'>${(perdaDeLitros - economiaDosLitros)}L</b> (${economiaDosLitros}L de redução), totalizando <b style='color:green'>R$${(perdaFinanceira - economiaTotalEmReais)}</b> (R$${economiaTotalEmReais} de redução).</p>
                 `
         }
-        else { // perda fora de 0% e 100%
-            div_mensagem.innerHTML = `A porcentagem da perda está incorreto , precisa estar no intervalo de 0-100 %`
+        else { // caso dados inválidos
+            div_mensagem.innerHTML = `insira dados Válidos`
         }
     }
 </script>
