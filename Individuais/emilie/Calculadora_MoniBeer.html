@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora MoniBeer</title>
+</head>
+<body align="center">
+    <h1 align="center">Simulador Financeiro MoniBeer</h1>
+      <h4>Informe a quantidade de tanques para fermentação na sua cervejaria:</h4>
+      <input type="number" id="input_tanque_fermentacao">
+      <h4>Informe a quantidade de litros produzidos por ano em cada tanque:</h4>
+      <input type="number" id="input_litros_por_ano">
+      <h4>Informe a quantidade de litros perdidos por ano devido a problemas de temperatura na produção:</h4>
+      <input type="number" id="input_litros_perdidos">
+      <h4>Informe o valor de venda por litro da cerveja:</h4>
+      <input type="number" id="input_valor_por_litro">
+    <br><br><p></p>
+    <button onclick="analise_ipa()">Calcular valor IPA</button>
+    <br><p></p>
+    <button onclick="analise_pilsen()">Calcular valor Pilsen</button>
+    <div id="div_mensagem"></div>
+    
+</html>
+<script>
+    function analise_ipa(){
+        var tanque = Number(input_tanque_fermentacao.value)
+        var produção = Number(input_litros_por_ano.value)
+        var perda_litro = Number(input_litros_perdidos.value)
+        var valor_litro = Number(input_valor_por_litro.value)
+    
+        var total_litros = tanque * produção //total de litros produzidos por ano;
+        var total_perdidos = tanque * perda_litro; // Total de litros perdidos;
+        var total_perda = (total_litros - total_perdidos) * valor_litro; 
+        var dinheiro = (total_litros * valor_litro) * (total_perda / 100)
+
+    div_mensagem.innerHTML = `<b>Produção anual:</b>A sua cervejaria produz <b>${total_litros}</b> litros por ano. 
+    Contudo, devido à falta de controle, há uma perda de <b>${total_perdidos}</b> litro(s)`;
+    }
+
+    function analise_pilsen(){
+        var tanque = Number(input_tanque_fermentacao.value)
+        var produção = Number(input_litros_por_ano.value)
+        var perda_litro = Number(input_litros_perdidos.value)
+        var valor_litro = Number(input_valor_por_litro.value)
+    
+        var total_litros = tanque * produção //total de litros produzidos por ano;
+        var total_perdidos = tanque * perda_litro; // Total de litros perdidos;
+        var total_perda = (total_litros - total_perdidos) * valor_litro; 
+
+    div_mensagem.innerHTML = `<b>Produção anual:</b> A sua cervejaria produz ${total_litros} litros por ano
+    Contudo, devido à falta de controle, há uma perda de <b>${total_perdidos}</b> litro(s)
+    <p></p>
+    <b>Valor total da perda:</b> R$ ${total_perda} `;
+    
+    }
+</script>
